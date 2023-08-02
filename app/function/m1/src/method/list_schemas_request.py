@@ -11,8 +11,8 @@ class Argument(pydantic.BaseModel):
 
     type_: str = pydantic.Field(..., alias='@type')
     identity: dict[str, Any]
-    catalog_name: str
     query_id: str
+    catalog_name: str
 
 
 def handler(arg_: dict[str, Any]) -> dict[str, Any]:

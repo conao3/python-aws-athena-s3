@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Any, Optional
+import uuid
 
 import pydantic
 import pydantic.alias_generators
@@ -25,21 +26,25 @@ class Argument(pydantic.BaseModel):
     query_id: str
     catalog_name: str
     table_name: ArgumentTable
+    constraints: dict[str, Any]
+    schema_: str = pydantic.Field(..., alias='schema')
+    partition_columns: list[str]
 
 
 def handler(arg_: dict[str, Any]) -> dict[str, Any]:
     arg = Argument.model_validate(arg_)
 
+    batch = pyarrow.RecordBatch.from_arrays([], [])
     return {
-        '@type': 'GetTableResponse',
+        '@type': 'GetTableLayoutResponse',
         'catalogName':  arg.catalog_name,
         'tableName': {
             'schemaName': arg.table_name.schema_name,
             'tableName': arg.table_name.table_name,
         },
-        'schema': subr.pyarrow.encode_object(pyarrow.schema([
-            ('id', pyarrow.string()),
-            ('name', pyarrow.string()),
-        ])),
-        'partitionColumns': [],
+        'partitions': {
+            'aId': str(uuid.uuid4()),
+            'schema': subr.pyarrow.encode_object(batch.schema),
+            'records': subr.pyarrow.encode_object(batch),
+        }
     }
