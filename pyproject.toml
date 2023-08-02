@@ -14,6 +14,7 @@ pyarrow = "^12.0.1"
 aws-lambda-powertools = "^2.22.0"
 pyyaml = "^6.0.1"
 pydantic = "^2.1.1"
+pyhumps = "^3.8.0"
 
 [build-system]
 requires = ["poetry-core"]

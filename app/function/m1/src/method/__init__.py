@@ -1,10 +1,11 @@
 from typing import Any
 
 from . import ping_request
-
+from . import list_schemas_request
 
 mapping = {
     'PingRequest': ping_request.handler,
+    'ListSchemasRequest': list_schemas_request.handler,
 }
 
 

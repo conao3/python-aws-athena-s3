@@ -1,6 +1,5 @@
 from __future__ import annotations
-
-from typing import Any
+from typing import Any, Optional
 
 import pydantic
 import pydantic.alias_generators
@@ -18,12 +17,11 @@ class Argument(pydantic.BaseModel):
 
 def handler(arg_: dict[str, Any]) -> dict[str, Any]:
     arg = Argument.model_validate(arg_)
+
     return {
-        '@type': 'PingResponse',
+        '@type': 'ListSchemasResponse',
         'catalogName':  arg.catalog_name,
-        'queryId': arg.query_id,
-        'sourceType': 'athena_python_sdk',
-        # https://github.com/awslabs/aws-athena-query-federation/blob/master/athena-federation-sdk/src/main/java/com/amazonaws/athena/connector/lambda/handlers/FederationCapabilities.java#L33
-        'capabilities': 24,
-        'serDeVersion': 4,
+        'schemas': [
+            's3',
+        ]
     }
