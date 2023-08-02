@@ -2,10 +2,14 @@ from typing import Any
 
 from . import ping_request
 from . import list_schemas_request
+from . import list_tables_request
+from . import get_table_request
 
 mapping = {
     'PingRequest': ping_request.handler,
     'ListSchemasRequest': list_schemas_request.handler,
+    'ListTablesRequest': list_tables_request.handler,
+    'GetTableRequest': get_table_request.handler,
 }
 
 
