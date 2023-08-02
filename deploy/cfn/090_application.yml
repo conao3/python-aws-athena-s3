@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  Env: { Type: String }
+  Prefix: { Type: String }
+
+Globals:
+  Function:
+    Runtime: python3.10
+    CodeUri: ../../app/function/m1
+    MemorySize: 1024
+    Timeout: 60
+    Layers:
+      - !Ref FunctionLayerM1
+    Environment:
+      Variables:
+        ENV: !Ref Env
+        PREFIX: !Ref Prefix
+
+Resources:
+  FunctionLayerM1:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: !Sub ${Prefix}-M1
+      ContentUri: ../../app/function-layer/m1/dist
+
+  FunctionMainM1:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${Prefix}-MainM1
+      Handler: src.main.index.handler

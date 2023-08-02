@@ -1,0 +1,65 @@
+#!/bin/bash
+
+set -euo pipefail -o posix
+
+cd "$(dirname "$0")/../../"
+
+function die() {
+    cat - >&2
+    exit 1
+}
+
+usage=$(cat <<EOF
+Usage: [options]
+
+Options:
+    --env <env>         Environment symbol [Required]
+    --prefix <prefix>   Prefix name (without Env symbol) [Required]
+    --profile <profile> AWS profile name
+    -h, --help          Show this help message and exit
+EOF
+)
+
+function parse() {
+    args=()
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -h | --help) echo "${usage}"; exit 0 ;;
+            --env) arg_env="$2"; shift ;;
+            --prefix) arg_prefix="$2"; shift ;;
+            --profile) export AWS_PROFILE="$2"; shift ;;
+            -*) printf "Illigal option: %s\n%s\n" "$1" "${usage}" | die ;;
+            *) args=(${args[@]+"${args[@]}"} "$1") ;;
+        esac
+        shift
+    done
+
+    if [[ -z "${arg_env+x}" ]]; then printf "Missing required option: --env\n%s\n" "${usage}" | die; fi
+    if [[ -z "${arg_prefix+x}" ]]; then printf "Missing required option: --prefix\n%s\n" "${usage}" | die; fi
+}
+
+parse "$@"
+if (( ${#args[@]} != 0 )); then printf "Unrecognize arguments: %s\n%s\n" "${args[*]}" "${usage}" | die; fi
+set -- "${args[@]}"
+
+script_name="$(basename "$0")"
+template_name="${script_name%.sh}.yml"
+template_basename="$(echo "${template_name}" | tr _ - | sed -r 's/^[0-9]*-?([a-zA-Z0-9-]*)\.yml/\1/')"
+
+template_file="./deploy/cfn/${template_name}"
+stack_name="${arg_env}-${arg_prefix}-${template_basename}"
+
+set -x
+pwd
+sam validate --template-file "${template_file}"
+sam deploy \
+    --template-file "${template_file}" \
+    --stack-name "${stack_name}" \
+    --capabilities CAPABILITY_NAMED_IAM \
+    --resolve-s3 \
+    --no-fail-on-empty-changeset \
+    --parameter-overrides "\
+Env=${arg_env} \
+Prefix=${arg_env}-${arg_prefix} \
+"
