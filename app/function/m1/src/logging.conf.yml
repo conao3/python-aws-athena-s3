@@ -1,0 +1,46 @@
+version: 1
+
+disable_existing_loggers: False
+
+formatters:
+  simpleFormatter:
+    class: src.JsonFormatter
+
+  dbFormatter:
+    class: src.Formatter
+    format: '■ %(message)s;'
+
+handlers:
+  consoleHandler:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simpleFormatter
+
+  consoleDbHandler:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: dbFormatter
+
+loggers:
+  src: &logger
+    level: INFO
+    handlers: [consoleHandler]
+
+  __main__: *logger
+
+  boto3:
+    level: DEBUG
+    handlers: [consoleHandler]
+  botocore:
+    level: DEBUG
+    handlers: [consoleHandler]
+
+  botocore.auth: {level: INFO}
+  botocore.client: {level: INFO}
+  botocore.credentials: {level: INFO}
+  botocore.hooks: {level: INFO}
+  botocore.httpsession: {level: INFO}
+  botocore.loaders: {level: INFO}
+  botocore.regions: {level: INFO}
+  botocore.retryhandler: {level: INFO}
+  botocore.utils: {level: INFO}

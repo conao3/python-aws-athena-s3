@@ -51,7 +51,7 @@ template_file="./deploy/cfn/${template_name}"
 stack_name="${arg_env}-${arg_prefix}-${template_basename}"
 
 set -x
-pwd
+
 sam validate --template-file "${template_file}"
 sam deploy \
     --template-file "${template_file}" \
