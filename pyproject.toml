@@ -13,6 +13,7 @@ boto3 = "^1.28.17"
 pyarrow = "^12.0.1"
 aws-lambda-powertools = "^2.22.0"
 pyyaml = "^6.0.1"
+pydantic = "^2.1.1"
 
 [build-system]
 requires = ["poetry-core"]
