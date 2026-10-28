@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      pip-minor-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: pip
+    directory: "/app/function-layer/m1"
+    schedule:
+      interval: weekly
+    groups:
+      layer-pip-minor-patch:
+        update-types: [minor, patch]

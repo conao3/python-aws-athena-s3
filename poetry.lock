@@ -14,14 +14,14 @@ files = [
 
 [[package]]
 name = "aws-lambda-powertools"
-version = "2.43.1"
+version = "3.38.0"
 description = "Powertools for AWS Lambda (Python) is a developer toolkit to implement Serverless best practices and increase developer velocity."
 optional = false
-python-versions = "<4.0.0,>=3.8"
+python-versions = "<4.0.0,>=3.10"
 groups = ["main"]
 files = [
-    {file = "aws_lambda_powertools-2.43.1-py3-none-any.whl", hash = "sha256:48116250c1771c7b8d4977ad2d475271074d86964107ccfd3fc6775e51984d88"},
-    {file = "aws_lambda_powertools-2.43.1.tar.gz", hash = "sha256:5c371a0c0430cf7bca1696748cb0d85079aac2c51056cbee10e5435029b35ca4"},
+    {file = "aws_lambda_powertools-3.38.0-py3-none-any.whl", hash = "sha256:aa3e6f07794fe118290bc26c831be0cb04393508899a9d8a3b2808ba80e0241a"},
+    {file = "aws_lambda_powertools-3.38.0.tar.gz", hash = "sha256:69eca8bd0634c4c8967a5503b282fe43d6da73075403bdb7c4334aa0c83a5575"},
 ]
 
 [package.dependencies]
@@ -29,29 +29,34 @@ jmespath = ">=1.0.1,<2.0.0"
 typing-extensions = ">=4.11.0,<5.0.0"
 
 [package.extras]
-all = ["aws-xray-sdk (>=2.8.0,<3.0.0)", "fastjsonschema (>=2.14.5,<3.0.0)", "pydantic (>=1.8.2,<2.0.0)"]
-aws-sdk = ["boto3 (>=1.26.164,<2.0.0)"]
-datadog = ["datadog-lambda (>=4.77,<7.0)"]
-datamasking = ["aws-encryption-sdk (>=3.1.1,<4.0.0)", "jsonpath-ng (>=1.6.0,<2.0.0)"]
-parser = ["pydantic (>=1.8.2,<2.0.0)"]
-redis = ["redis (>=4.4,<6.0)"]
+all = ["aws-encryption-sdk (>=4.0.5,<5.0.0)", "aws-xray-sdk (>=2.8.0,<3.0.0)", "cryptography (>=50.0.1,<51.0.0)", "fastjsonschema (>=2.14.5,<3.0.0)", "jsonpath-ng (>=1.6.0,<2.0.0)", "pydantic (>=2.4.0,<3.0.0)", "pydantic-settings (>=2.6.1,<3.0.0)", "pyjwt (>=2.14.0,<3.0.0)", "urllib3 (>=2.7.0,<3.0.0)"]
+aws-sdk = ["boto3 (>=1.34.32,<2.0.0)"]
+datadog = ["datadog-lambda (>=8.114.0,<9.0.0)"]
+datamasking = ["aws-encryption-sdk (>=4.0.5,<5.0.0)", "jsonpath-ng (>=1.6.0,<2.0.0)"]
+jwt = ["cryptography (>=50.0.1,<51.0.0)", "pyjwt (>=2.14.0,<3.0.0)", "urllib3 (>=2.7.0,<3.0.0)"]
+kafka-consumer-avro = ["avro (>=1.12.0,<2.0.0)"]
+kafka-consumer-protobuf = ["protobuf (>=6.30.2,<8.0.0)"]
+oauth2 = ["urllib3 (>=2.7.0,<3.0.0)"]
+parser = ["pydantic (>=2.4.0,<3.0.0)"]
+redis = ["redis (>=4.4,<9.0)"]
 tracer = ["aws-xray-sdk (>=2.8.0,<3.0.0)"]
 validation = ["fastjsonschema (>=2.14.5,<3.0.0)"]
+valkey = ["valkey-glide (>=1.3.5,<3.0)"]
 
 [[package]]
 name = "boto3"
-version = "1.43.118"
+version = "1.43.120"
 description = "The AWS SDK for Python (Boto3)"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "boto3-1.43.118-py3-none-any.whl", hash = "sha256:ab8f3d2c622ef039338b4f228d97ea55f1abd573d84bb9b9a5ee8cb6780c0ccd"},
-    {file = "boto3-1.43.118.tar.gz", hash = "sha256:c0620f799e0f0c222ba42c337b65cdbcd3da38a3121187f634d8926cbbb28a9c"},
+    {file = "boto3-1.43.120-py3-none-any.whl", hash = "sha256:86978245a7b911549a44df3f805ae4ce94a8154f4ebe4a166631b8a6d7af2697"},
+    {file = "boto3-1.43.120.tar.gz", hash = "sha256:9d85840e721869f8202ab5f6b4ec3e697ac46343116cc8d1d0804ec58f90c503"},
 ]
 
 [package.dependencies]
-botocore = ">=1.43.118,<1.44.0"
+botocore = ">=1.43.120,<1.44.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.19.0,<0.20.0"
 
@@ -60,14 +65,14 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.43.118"
+version = "1.43.120"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "botocore-1.43.118-py3-none-any.whl", hash = "sha256:a45d7ae570674161e4a3542d8c68633bf7503f92d1de781ef7361b79488eda6f"},
-    {file = "botocore-1.43.118.tar.gz", hash = "sha256:7f3f9d88cc9e847587690f82a42e3c3c292c3026c92c1e60d68a9310018e003f"},
+    {file = "botocore-1.43.120-py3-none-any.whl", hash = "sha256:7f54674f26f0d9a500bf44a1f858e88b70b03c82b2aca385ddf51f6e968bfd01"},
+    {file = "botocore-1.43.120.tar.gz", hash = "sha256:f479cbb7273b9c0ea589a91a7abe38badda6353fb7c237a22c7461a06d279ee2"},
 ]
 
 [package.dependencies]
@@ -510,4 +515,4 @@ zstd = ["backports-zstd (>=1.0.0) ; python_version < \"3.14\""]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "7452aa959d534903385ec5b66fbb0b42cced5c108d74d047ac57fc3e67a9c411"
+content-hash = "bce78b79a3b645a5a8dc278c37ab1945b2c00ec1cfbbb469a213f80e7513d94c"

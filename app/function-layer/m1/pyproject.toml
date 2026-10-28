@@ -6,9 +6,9 @@ authors = ["Naoya Yamashita <conao3@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "~3.10.0"
-aws-lambda-powertools = "^3.37.0"
-pyarrow = "^25.0.1"
+python = "~3.14.0"
+aws-lambda-powertools = "^3.38.0"
+pyarrow = "^26.0.0"
 pyyaml = "^6.0.3"
 pydantic = "^2.14.1"
 pyhumps = "^3.8.0"
