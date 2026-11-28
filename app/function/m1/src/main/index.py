@@ -1,10 +1,9 @@
-from typing import Any
 import logging
+from typing import Any
 
 from aws_lambda_powertools.utilities.typing import LambdaContext
 
 from .. import method
-
 
 logger = logging.getLogger(__name__)
 

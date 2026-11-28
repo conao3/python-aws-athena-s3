@@ -1,9 +1,10 @@
 from __future__ import annotations
-from typing import Any, Optional
 
+from typing import Any
+
+import pyarrow
 import pydantic
 import pydantic.alias_generators
-import pyarrow
 
 from .. import subr
 
@@ -20,7 +21,7 @@ class Argument(pydantic.BaseModel):
     class Config:
         alias_generator = pydantic.alias_generators.to_camel
 
-    type_: str = pydantic.Field(..., alias='@type')
+    type_: str = pydantic.Field(..., alias="@type")
     identity: dict[str, Any]
     query_id: str
     catalog_name: str
@@ -31,15 +32,19 @@ def handler(arg_: dict[str, Any]) -> dict[str, Any]:
     arg = Argument.model_validate(arg_)
 
     return {
-        '@type': 'GetTableResponse',
-        'catalogName':  arg.catalog_name,
-        'tableName': {
-            'schemaName': arg.table_name.schema_name,
-            'tableName': arg.table_name.table_name,
+        "@type": "GetTableResponse",
+        "catalogName": arg.catalog_name,
+        "tableName": {
+            "schemaName": arg.table_name.schema_name,
+            "tableName": arg.table_name.table_name,
         },
-        'schema': subr.pyarrow.encode_object(pyarrow.schema([
-            ('id', pyarrow.string()),
-            ('name', pyarrow.string()),
-        ])),
-        'partitionColumns': [],
+        "schema": subr.pyarrow.encode_object(
+            pyarrow.schema(
+                [
+                    ("id", pyarrow.string()),
+                    ("name", pyarrow.string()),
+                ]
+            )
+        ),
+        "partitionColumns": [],
     }

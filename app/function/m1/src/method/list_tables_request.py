@@ -1,5 +1,6 @@
 from __future__ import annotations
-from typing import Any, Optional
+
+from typing import Any
 
 import pydantic
 import pydantic.alias_generators
@@ -9,34 +10,34 @@ class Argument(pydantic.BaseModel):
     class Config:
         alias_generator = pydantic.alias_generators.to_camel
 
-    type_: str = pydantic.Field(..., alias='@type')
+    type_: str = pydantic.Field(..., alias="@type")
     identity: dict[str, Any]
     query_id: str
     catalog_name: str
     schema_name: str
-    next_token: Optional[str]
-    page_size: Optional[int]
+    next_token: str | None
+    page_size: int | None
 
 
 def handler(arg_: dict[str, Any]) -> dict[str, Any]:
     arg = Argument.model_validate(arg_)
 
     return {
-        '@type': 'ListTablesResponse',
-        'tables': [
+        "@type": "ListTablesResponse",
+        "tables": [
             {
-                'schemaName': arg.schema_name,
-                'tableName': 'customers',
+                "schemaName": arg.schema_name,
+                "tableName": "customers",
             },
             {
-                'schemaName': arg.schema_name,
-                'tableName': 'organizations',
+                "schemaName": arg.schema_name,
+                "tableName": "organizations",
             },
             {
-                'schemaName': arg.schema_name,
-                'tableName': 'people',
+                "schemaName": arg.schema_name,
+                "tableName": "people",
             },
         ],
-        'catalogName':  arg.catalog_name,
-        'nextToken': None,
+        "catalogName": arg.catalog_name,
+        "nextToken": None,
     }
