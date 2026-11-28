@@ -16,8 +16,7 @@ This project provides a custom data source connector for Amazon Athena, enabling
 
 ## Requirements
 
-- Python 3.11 or later
-- Poetry for dependency management
+- Nix with flakes enabled (`nix develop` provides Python 3.14, Poetry with poetry-plugin-export, gcc, and make)
 - AWS credentials with appropriate permissions
 
 ## Installation
@@ -27,9 +26,20 @@ This project provides a custom data source connector for Amazon Athena, enabling
 git clone https://github.com/conao3/python-aws-athena-s3.git
 cd python-aws-athena-s3
 
-# Install dependencies
+# Enter the development shell and install dependencies
+nix develop
 poetry install
 ```
+
+## Development
+
+Run the formatter check, the lockfile checks, the tests, and the Lambda layer build:
+
+```bash
+nix develop --command make check
+```
+
+Format the sources with `make format`.
 
 ## Deployment
 
